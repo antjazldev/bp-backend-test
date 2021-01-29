@@ -30,7 +30,7 @@ public class TransactionControllerTest extends AbstractControllerTest {
 		transactions.add(new TransactionDto(2L, "July payment", "Credit card payment", creationDate));
 
 		// when
-		when(accountService.getTransactionsForAccount(1L)).thenReturn(transactions);
+		when(transactionService.getTransactionsForAccount(1L)).thenReturn(transactions);
 
 		// then
 		mockMvc.perform(get("/accounts/1/transactions").accept(MediaType.APPLICATION_JSON))
@@ -51,7 +51,7 @@ public class TransactionControllerTest extends AbstractControllerTest {
 		NewTransactionDto newTransaction = createTransaction("Test comment", "Credit card payment");
 
 		// when
-		when(accountService.addTransaction(newTransaction)).thenReturn(1L);
+		when(transactionService.addTransaction(newTransaction)).thenReturn(1L);
 
 		// then
 		mockMvc.perform(post("/accounts/1/transactions")

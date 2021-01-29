@@ -31,6 +31,8 @@ public class AccountServiceTest {
 
 	@Autowired
 	AccountService accountService;
+	@Autowired
+	TransactionService transactionService;
 
 	@Test
 	public void shouldReturnCreatedAccount() {
@@ -65,7 +67,7 @@ public class AccountServiceTest {
 		transaction.setAccountId(account.getId());
 		transaction.setType("Type");
 		transaction.setComment("Comment");
-		Long transactionId = accountService.addTransaction(transaction);
+		Long transactionId = transactionService.addTransaction(transaction);
 
 		assertThat("Transaction id shouldn't be null", transactionId, notNullValue());
 	}
@@ -89,9 +91,9 @@ public class AccountServiceTest {
 		transaction.setType("Type");
 		transaction.setComment("Comment");
 
-		accountService.addTransaction(transaction);
+		transactionService.addTransaction(transaction);
 
-		List<TransactionDto> transactions = accountService.getTransactionsForAccount(account.getId());
+		List<TransactionDto> transactions = transactionService.getTransactionsForAccount(account.getId());
 
 		assertThat("There should be one transaction", transactions, hasSize(1));
 		assertThat(transactions.get(0).getType(), Matchers.equalTo("Type"));
